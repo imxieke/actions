@@ -1,11 +1,11 @@
 name: Crontab
 on:
   schedule:
-    - cron: 1 2/* * * *
+    - cron: 30/* * * * *
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    -name: check iname
-      run: uname -a
+      - name: Run a one-line script
+        run: echo Hello from Octo Organization
