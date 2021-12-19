@@ -1,12 +1,11 @@
 name: Crontab
-
 on:
   schedule:
-    - cron: * 2/* * * *
+    - cron: 1 2/* * * *
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -name: check iname
+    -name: check iname
       run: uname -a
