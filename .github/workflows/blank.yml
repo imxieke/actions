@@ -16,6 +16,7 @@ jobs:
           pwd
           ls -lha
           cat /etc/os-release
+          whoami
 
       - name: Check OS Directory
         run: |
