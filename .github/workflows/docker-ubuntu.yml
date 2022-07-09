@@ -20,7 +20,9 @@ jobs:
     - name: Fetch Dockerfile
       run : |
         git clone --depth 1 https://github.com/imxieke/dockenv.git
-        cd dockenv
+        pwd
+        ls -lha
+        cat /etc/os-release
     - name: Build the Docker image
       run: |
         for tag in ${IMAGE_TAGS}; do
