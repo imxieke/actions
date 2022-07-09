@@ -8,4 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
-        run: echo Hello from Octo Organization
+        run: |
+          mkdir -p mkpkgs
+          pwd
+          ls -lha
+          cat /etc/os-release
+
+      - name: Check OS Directory
+        run: |
+          pwd
+          ls -lha
+          cd mkpkgs
+          ls -lha
