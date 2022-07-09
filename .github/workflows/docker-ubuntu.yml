@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  ALIYUN_HK_REGISTRY: ghcr.io
+  ALIYUN_HK_REGISTRY: registry.cn-hongkong.aliyuncs.com
   IMAGE_NAME: ubuntu
   IMAGE_TAGS: "latest 22.10 22.04 21.10 21.04 20.10 20.04 18.04 16.04"
 
@@ -22,11 +22,8 @@ jobs:
         git clone --depth 1 https://github.com/imxieke/dockenv.git
     - name: Build the Docker image
       run: |
-        pwd
-        ls -lha
         cd dockenv
         for tag in ${IMAGE_TAGS}; do
-        ls -lha
           docker build . -f images/${{ env.IMAGE_NAME }}/${tag}/Dockerfile -t ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
           docker tag ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag} ${{ env.ALIYUN_HK_REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
         done
