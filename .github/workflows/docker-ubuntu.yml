@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Fetch Dockerfile
-      run :
+      run : |
         git clone --depth 1 https://github.com/imxieke/dockenv.git
         cd dockenv
     - name: Build the Docker image
