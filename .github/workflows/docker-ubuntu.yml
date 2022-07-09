@@ -20,16 +20,15 @@ jobs:
     - name: Fetch Dockerfile
       run : |
         git clone --depth 1 https://github.com/imxieke/dockenv.git
-        pwd
-        ls -lha
-        cat /etc/os-release
     - name: Build the Docker image
       run: |
-        for tag in ${IMAGE_TAGS}; do
         pwd
         ls -lha
-          # docker build . -f images/${{ env.IMAGE_NAME }}/${tag}/Dockerfile -t ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
-          # docker tag ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag} ${{ env.ALIYUN_HK_REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+        cd dockenv
+        for tag in ${IMAGE_TAGS}; do
+        ls -lha
+          docker build . -f images/${{ env.IMAGE_NAME }}/${tag}/Dockerfile -t ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+          docker tag ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag} ${{ env.ALIYUN_HK_REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
         done
 
     - name: Login Github Package Registry
