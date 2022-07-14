@@ -1,0 +1,41 @@
+name: Docker Build MSSQL
+
+on:
+  workflow_dispatch:
+    branches:
+    - master
+  schedule:
+    - cron: '0 2 * * *'
+
+env:
+  REGISTRY: ghcr.io
+  ALIYUN_HK_REGISTRY: registry.cn-hongkong.aliyuncs.com
+  IMAGE_NAME: mssql
+  IMAGE_TAGS: "latest 2022 2019 2017"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch Dockerfile
+      run : |
+        git clone --depth 1 https://github.com/imxieke/dockenv.git
+    - name: Build the Docker image
+      run: |
+        cd dockenv
+        for tag in ${IMAGE_TAGS}; do
+          docker build . -f images/${{ env.IMAGE_NAME }}/${tag}/Dockerfile -t ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+          docker tag ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag} ${{ env.ALIYUN_HK_REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+        done
+
+    - name: Login Github Package Registry
+      run: |
+        docker login -u ${{secrets.GH_USERNAME}} -p "${{ secrets.GH_APIKE }}" ${{ env.REGISTRY }}
+        docker login -u ${{secrets.DOCKER_REGISTRY_ALIYUN_USERNAME}} -p "${{ secrets.DOCKER_REGISTRY_ALIYUN_PASSWORD }}" ${{ env.ALIYUN_HK_REGISTRY }}
+
+    - name: Push Docker Image To Github Package
+      run: |
+        for tag in ${IMAGE_TAGS}; do
+          docker push ${{ env.REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+          docker push ${{ env.ALIYUN_HK_REGISTRY }}/dockenv/${{ env.IMAGE_NAME }}:${tag}
+        done
