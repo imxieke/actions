@@ -10,27 +10,19 @@ on:
   schedule:
     - cron: '0 2 * * *'
 jobs:
-  container-test-job:
+  Container:
     runs-on: ubuntu-latest
     container:
-      image: node:14.16
-      env:
-        NODE_ENV: development
-      ports:
-        - 80
+      image: ghcr.io/dockenv/archlinux:latest
       # only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed
-      # volumes:
-        # - ./:/mnt
-      options: --cpus 1 --name node --hostname node
+      volumes:
+        - /tmp:/mnt
+      options: --cpus 1 --name arch --hostname arch
     steps:
       # 这个步骤是已经进入容器环境了
-      - name: Check for dockerenv file
+      - name: Run in Container
         run: |
-          ls -lha /
-          echo ${PATH}
+          env
           cat /etc/os-release
-          node -v
-          # /usr/bin/docker -v
-          # /usr/bin/docker info
-          # /usr/bin/docker ps
-          # /usr/bin/docker run -it --rm node node -v
+          ls -lha /tmp
+          ls -lha /mnt
