@@ -1,0 +1,26 @@
+name: Docker Container Example
+on:
+  push:
+    tags:
+      - '*'
+    branches: [ main ]
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.16
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - $(pwd):/mnt
+      options: --cpus 1 --name node --hostname node
+    steps:
+      - name: Check for dockerenv file
+        run: |
+          ls -lha /
+          docker -v
+          docker info
+          docker ps
+          docker run -it --rm node node -v
