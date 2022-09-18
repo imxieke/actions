@@ -19,8 +19,8 @@ jobs:
       ports:
         - 80
       # only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed
-      volumes:
-        - ./:/mnt
+      # volumes:
+        # - ./:/mnt
       options: --cpus 1 --name node --hostname node
     steps:
       - name: Check for dockerenv file
