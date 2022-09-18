@@ -23,11 +23,14 @@ jobs:
         # - ./:/mnt
       options: --cpus 1 --name node --hostname node
     steps:
+      # 这个步骤是已经进入容器环境了
       - name: Check for dockerenv file
         run: |
           ls -lha /
           echo ${PATH}
-          /usr/bin/docker -v
-          /usr/bin/docker info
-          /usr/bin/docker ps
-          /usr/bin/docker run -it --rm node node -v
+          cat /etc/os-release
+          node -v
+          # /usr/bin/docker -v
+          # /usr/bin/docker info
+          # /usr/bin/docker ps
+          # /usr/bin/docker run -it --rm node node -v
