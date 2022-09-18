@@ -26,7 +26,8 @@ jobs:
       - name: Check for dockerenv file
         run: |
           ls -lha /
-          docker -v
-          docker info
-          docker ps
-          docker run -it --rm node node -v
+          echo ${PATH}
+          /usr/bin/docker -v
+          /usr/bin/docker info
+          /usr/bin/docker ps
+          /usr/bin/docker run -it --rm node node -v
