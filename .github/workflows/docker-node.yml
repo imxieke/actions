@@ -18,8 +18,9 @@ jobs:
         NODE_ENV: development
       ports:
         - 80
+      # only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed
       volumes:
-        - $(pwd):/mnt
+        - ./:/mnt
       options: --cpus 1 --name node --hostname node
     steps:
       - name: Check for dockerenv file
