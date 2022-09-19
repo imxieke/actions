@@ -22,7 +22,6 @@ jobs:
       # 这个步骤是已经进入容器环境了
       - name: Run in Container
         run: |
-          env
-          cat /etc/os-release
-          ls -lha /tmp
-          ls -lha /mnt
+          pacman -Syy
+          pacman -S --noconfirm neofetch
+          neofetch
